@@ -50,7 +50,7 @@
               <el-button type="danger" icon="el-icon-delete" @click="delectuser(bb.row.id)"></el-button>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="分配角色" placement="top-start" :enterable='false'>
-              <el-button type="warning" icon="el-icon-s-tools"></el-button>
+              <el-button type="warning" icon="el-icon-s-tools" @click="allocateRoles(bb.row)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -99,6 +99,22 @@
         <el-button type="primary" @click="altermege">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 分配角色对话框 -->
+    <el-dialog title="分配角色" :visible.sync="allotJurisdictionCase" width="40%">
+      <p>当前的用户：{{row.username}}</p>
+      <p>当前的角色：{{row.role_name}}</p>
+      <p>分配新角色：
+        <!-- 选择器 -->
+        <el-select v-model="selectID" placeholder="请选择">
+          <el-option v-for="item in rolesList" :key="item.id" :label="item.roleName" :value="item.id">
+          </el-option>
+        </el-select>
+      </p>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="allotJurisdictionCase = false">取 消</el-button>
+        <el-button type="primary" @click="rolesConfirm">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -134,6 +150,8 @@ export default {
       dialogVisible: false,
       // 修改用户的显示与隐藏
       xiugaiyonghu: false,
+      // 分配角色对话框显示与隐藏
+      allotJurisdictionCase: false,
       // 添加用户的表单数据
       addform: {
         username: '',
@@ -147,6 +165,12 @@ export default {
         email: '',
         mobile: ''
       },
+      // 分配角色的内容
+      row: {},
+      // 角色列表数据
+      rolesList: [],
+      // 分配角色选中的id
+      selectID: '',
       // 添加用户表单数据的验证规则
       addformRule: {
         username: [
@@ -249,6 +273,26 @@ export default {
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
       this.getuserlist()
       this.$message.success('删除成功！！')
+    },
+    //     分配角色按钮
+    async allocateRoles (row) {
+      this.row = row
+      // 在对话框打开之前获取所有的角色列表
+      const { data: res } = await this.axios.get('roles')
+      if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+      this.rolesList = res.data
+      this.allotJurisdictionCase = true
+    },
+    //     分配角色确定按钮
+    async  rolesConfirm () {
+      if (!this.selectID) return this.$message.error('请选择')
+      const { data: res } = await this.axios.put(`users/${this.row.id}/role`, {
+        rid: parseInt(this.selectID)
+      })
+      if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+      this.$message.success(res.meta.msg)
+      this.allotJurisdictionCase = false
+      this.getuserlist()
     }
   },
   created () {
@@ -266,5 +310,8 @@ export default {
 .tables {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+p {
+  margin: 10px 0;
 }
 </style>
