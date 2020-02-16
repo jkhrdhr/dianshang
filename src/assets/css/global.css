@@ -4,6 +4,11 @@
       margin: 0;
 }
 
+/* 解决连级选择框悬浮框全屏的问题 */
+.el-cascader-panel {
+      height: 200px;
+}
+
 html,
 body,
 #app {

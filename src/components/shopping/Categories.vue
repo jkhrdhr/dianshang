@@ -41,8 +41,8 @@
         <el-form-item label="父级分类：">
           <!-- options用来指定数据源 -->
           <!-- props用来指定配置对象 -->
-          <el-cascader :change-on-select="true" expand-trigger="hover" size='small' v-model="fatherKey"
-            :options="fatherClassList" :props="propss" @change="handleChange">
+          <el-cascader size='small' v-model="fatherKey" :options="fatherClassList" :props="propss"
+            @change="handleChange">
           </el-cascader>
         </el-form-item>
       </el-form>
@@ -118,7 +118,9 @@ export default {
       propss: {
         value: 'cat_id',
         label: 'cat_name',
-        children: 'children'
+        children: 'children',
+        expandTrigger: 'hover',
+        checkStrictly: 'true'
       }
     }
   },
