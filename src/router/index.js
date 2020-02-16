@@ -6,6 +6,7 @@ import Welcome from '../components/childe/Welcome.vue'
 import UserList from '../components/childe/UserList.vue'
 import Rights from '../components/permission/Rights.vue'
 import Roles from '../components/permission/Roles.vue'
+import Categories from '../components/shopping/Categories.vue'
 
 Vue.use(VueRouter)
 
@@ -29,7 +30,7 @@ const routes = [
                   // 分类参数
                   { path: '/params', component: Welcome },
                   // 商品分类
-                  { path: '/categories', component: Welcome },
+                  { path: '/categories', component: Categories },
                   // 订单列表
                   { path: '/orders', component: Welcome },
                   // 数据统计
