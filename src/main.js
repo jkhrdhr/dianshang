@@ -15,7 +15,8 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 // 导入vue-table-with-tree-grid插件
 import ZkTable from 'vue-table-with-tree-grid'
-
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 Vue.use(VueQuillEditor)
 Vue.component('tree-table', ZkTable)
 
