@@ -8,6 +8,8 @@ import Rights from '../components/permission/Rights.vue'
 import Roles from '../components/permission/Roles.vue'
 import Categories from '../components/shopping/Categories.vue'
 import params from '../components//shopping/Params.vue'
+import Goods from '../components/shopping/Goods.vue'
+import Add from '../components/shopping/Add.vue'
 
 Vue.use(VueRouter)
 
@@ -27,7 +29,7 @@ const routes = [
                   // 权限列表
                   { path: '/rights', component: Rights },
                   // 商品列表
-                  { path: '/goods', component: Welcome },
+                  { path: '/goods', component: Goods },
                   // 分类参数
                   { path: '/params', component: params },
                   // 商品分类
@@ -35,8 +37,8 @@ const routes = [
                   // 订单列表
                   { path: '/orders', component: Welcome },
                   // 数据统计
-                  { path: '/reports', component: Welcome }
-
+                  { path: '/reports', component: Welcome },
+                  { path: '/goods/add', component: Add }
             ]
       }
 ]
