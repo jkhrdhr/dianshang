@@ -16,14 +16,23 @@ import 'quill/dist/quill.bubble.css'
 // 导入vue-table-with-tree-grid插件
 import ZkTable from 'vue-table-with-tree-grid'
 import echarts from 'echarts'
+// 导入NProgress  js和css包
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 Vue.prototype.$echarts = echarts
 Vue.use(VueQuillEditor)
 Vue.component('tree-table', ZkTable)
 
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 axios.interceptors.request.use(config => {
+      // 在发起axios的时候展示进度条
+      NProgress.start()
       config.headers.Authorization = window.sessionStorage.getItem('token')
       // console.log(config)
+      return config
+})
+axios.interceptors.response.use(config => {
+      NProgress.done()
       return config
 })
 Vue.prototype.axios = axios
