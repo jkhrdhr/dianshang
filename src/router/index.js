@@ -10,6 +10,7 @@ import Categories from '../components/shopping/Categories.vue'
 import params from '../components//shopping/Params.vue'
 import Goods from '../components/shopping/Goods.vue'
 import Add from '../components/shopping/Add.vue'
+import orders from '../components/indent/Orders.vue'
 
 Vue.use(VueRouter)
 
@@ -35,7 +36,7 @@ const routes = [
                   // 商品分类
                   { path: '/categories', component: Categories },
                   // 订单列表
-                  { path: '/orders', component: Welcome },
+                  { path: '/orders', component: orders },
                   // 数据统计
                   { path: '/reports', component: Welcome },
                   { path: '/goods/add', component: Add }
